@@ -2,9 +2,9 @@ package main
 
 func main() {
 
-	taskOne()
+	//taskOne()
 
-	//taskTwo()
+	taskTwo()
 
 	//taskThree()
 
