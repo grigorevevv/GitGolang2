@@ -4,12 +4,14 @@ func main() {
 
 	//taskOne()
 
-	taskTwo()
+	//taskTwo()
 
-	//taskThree()
+	taskThree()
 
 	//taskFour()
 
 	//taskFive()
+
+	//taskSix()
 
 }

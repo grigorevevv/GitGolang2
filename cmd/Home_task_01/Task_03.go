@@ -9,9 +9,9 @@ import "fmt"
 
 func taskThree() {
 	nums := []int{20, 13, 113, -5, 77}
-	var indexdelete int = 2
+	var indexToDelete int = 2
 
-	sliceNew := append(nums[:indexdelete], nums[(indexdelete+1):]...)
+	sliceNew := append(nums[:indexToDelete], nums[(indexToDelete+1):]...)
 
 	fmt.Println(sliceNew)
 

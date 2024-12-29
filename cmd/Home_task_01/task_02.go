@@ -7,15 +7,15 @@ package main
 
 import "fmt"
 
-func taskTwo() {
+func TaskTwo() {
 	nums := []int{20, 13, 113, 15, 34, 7, 52, 41, -5}
 
-	valuemax, valuemin := maxminvalueslice(nums)
+	valuemin, valuemax := maxMinValueSlice(nums)
 	fmt.Printf("минимальное значение: %2d\n", valuemin)
 	fmt.Printf("максимальное значение: %2d\n", valuemax)
 }
 
-func maxminvalueslice(nums []int) (int, int) {
+func maxMinValueSlice(nums []int) (int, int) {
 	var maxvalue int
 	var minvalue int
 	minvalue = nums[0]

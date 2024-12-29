@@ -10,11 +10,12 @@ import "fmt"
 func taskFive() {
 	sliceFloat := []float64{64, 335, 47.98, -5, 19.99}
 
-	var sum, countElem float64
+	var sum float64
+	var countElem int = len(sliceFloat)
 
 	for _, value := range sliceFloat {
 		sum += value
-		countElem++
+		//countElem++
 	}
-	fmt.Printf("Среднее значение слайса: %.2f", sum/countElem)
+	fmt.Printf("Среднее значение слайса: %.2f", sum/float64(countElem))
 }

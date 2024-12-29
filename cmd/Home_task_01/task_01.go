@@ -8,17 +8,20 @@ package main
 import "fmt"
 
 func taskOne() {
-	var x int
+	var sum int
 	nums := [10]int{}
 	fmt.Print("Введите значения для массива: ")
 
-	for i := 0; i <= 9; i++ {
-		fmt.Scan(&nums[i])
+	for i := 0; i < 10; i++ {
+		_, err := fmt.Scan(&nums[i])
+		if err != nil {
+			fmt.Printf("ошибка при вводе элемента %d: %v\n", i, err)
+		}
 	}
 
 	for _, number := range nums {
-		x += number
+		sum += number
 		//fmt.Println(i, number)
 	}
-	fmt.Println(x)
+	fmt.Println(sum)
 }
