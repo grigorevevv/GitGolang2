@@ -8,9 +8,10 @@ package main
 
 import "fmt"
 
-var sum int
-
 func taskOne() {
+
+	var sum int
+
 	for i := 2; i < 21; i += 2 {
 		sum += i
 	}
