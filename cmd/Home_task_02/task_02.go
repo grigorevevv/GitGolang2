@@ -28,13 +28,4 @@ func taskTwo() {
 	} else {
 		fmt.Println("Тепло")
 	}
-	/*	case temperature < 0 :
-
-			fmt.Println("Холодно")
-		case temperature >= 0 && temperature <= 20:
-			fmt.Println("Прохладно")
-		case temperature > 20:
-			fmt.Println("Тепло")
-		}*/
-
 }

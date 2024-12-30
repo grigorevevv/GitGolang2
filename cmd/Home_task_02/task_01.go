@@ -13,8 +13,6 @@ var sum int
 func taskOne() {
 	for i := 2; i < 21; i += 2 {
 		sum += i
-		//fmt.Println(i)
-		//i = i + 2
 	}
 	fmt.Printf("Сумма чётных чисел от 1 до 20: %d", sum)
 }
