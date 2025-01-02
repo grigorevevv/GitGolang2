@@ -18,8 +18,12 @@ import "fmt"
 func taskTwo() {
 	var temperature int
 
-	fmt.Println("Введите температуру: ")
-	fmt.Scan(&temperature)
+	fmt.Print("Введите температуру: ")
+	_, err := fmt.Scan(&temperature)
+
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	if temperature < 0 {
 		fmt.Println("Холодно")

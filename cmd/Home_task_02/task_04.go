@@ -17,11 +17,10 @@ import "fmt"
 func taskFour() {
 	var factorial, sum int
 
-	factorial = 5
-	sum = 1
-	for i := 1; i <= factorial; i++ {
-		sum = sum * i
-		fmt.Println(sum)
+	factorial = 1
+	sum = 5
+	for i := 1; i <= sum; i++ {
+		factorial = factorial * i
 	}
-	fmt.Printf("Факториал %d равен %d", factorial, sum)
+	fmt.Printf("Факториал %d равен %d\n", sum, factorial)
 }

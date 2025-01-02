@@ -16,11 +16,11 @@ package main
 import "fmt"
 
 func taskThree() {
-	var value, sum int
+	var value, result int
 
 	value = 7
-	for i := 1; i < 11; i++ {
-		sum = value * i
-		fmt.Printf("%d x %d = %d\n", value, i, sum)
+	for i := 1; i <= 10; i++ {
+		result = value * i
+		fmt.Printf("%d x %d = %d\n", value, i, result)
 	}
 }
