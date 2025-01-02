@@ -16,20 +16,21 @@ func main() {
 	> Подсказка:  > - Для проверки на нечётность используйте x % 2 != 0.   > - Для добавления элемента к результату используйте append.
 	Пример:  Исходные числа: [3 4 7 10 9 1]   Нечётные числа: [3 7 9 1]                   */
 
+	fmt.Println("Задача 1: Фильтрация нечётных чисел")
 	apslice := []int{3, 4, 7, 10, 9, 1, 7, 9, 0, -3, 12}
 
 	fmt.Println(filterOdd(apslice))
-
+	fmt.Println()
 	/*   Задача 2: Переключатель сообщений (switch)
 	1. Создайте функцию printMessage(level int), которая:  - Если level == 1: выводит "Info message".  - Если level == 2: выводит "Warning message".  - Если level == 3: выводит "Error message".   - Иначе: выводит "Unknown level".
 	2. В main несколько раз вызовите эту функцию с разными значениями (`1, 2, 3, 5`) и выведите результат.
 	> Подсказка:   > - Используйте конструкцию switch level { ... }.  > - В Go нет автоматического «проваливания» в следующую ветку, если не указать fallthrough.   Пример:  printMessage(1) -> Info message   printMessage(2) -> Warning message   printMessage(3) -> Error message    printMessage(5) -> Unknown level	 */
-
+	fmt.Println("Задача 2: Переключатель сообщений (switch)")
 	printMessage(1)
 	printMessage(2)
 	printMessage(3)
 	printMessage(5)
-
+	fmt.Println()
 	/*  Задача 3: Удаление элемента из слайса
 	1. Напишите функцию removeElement(s []int, index int) []int, которая удаляет элемент с  индексом index из слайса s и возвращает новый слайс.
 	2. В main создайте слайс из 6–7 чисел, выведите его.
@@ -37,15 +38,14 @@ func main() {
 	4. Попробуйте удалить элемент с индексом, выходящим за границы (например, 10) и корректно обработайте   эту ситуацию (например, вернуть исходный слайс или вывести сообщение).
 	> Подсказка:  > - Используйте приём s = append(s[:index], s[index+1:]...), но предварительно проверьте, что index не выходит за len(s).
 	Пример:   Исходный слайс: [10 20 30 40 50 60 70]    Удаляем элемент на индексе 2...    Результат:      [10 20 40 50 60 70]     */
-
-	sliceRemove, err := removeElement(apslice, 10)
+	fmt.Println("Задача 3: Удаление элемента из слайса")
+	sliceRemove, err := removeElement(apslice, 12)
 	if err != nil {
 		fmt.Println(err)
-		return
+	} else {
+		fmt.Println(sliceRemove)
 	}
-
-	fmt.Println(sliceRemove)
-
+	fmt.Println()
 	/*Задача 4: Средний балл студентов
 
 	1. Создайте структуру Student с полями Name string и Marks []float64.
@@ -68,6 +68,7 @@ func main() {
 	//Den := Student{name: "Den", marks: []float64{3, 3, 4}}
 	//Donald := Student{name: "Donald", marks: []float64{5, 2, 3}}
 	//Elena := Student{name: "Elena", marks: []float64{2, 3, 5, 5, 4}}
+	fmt.Println("Задача 4: Средний балл студентов")
 
 	studentSlice := []Student{
 		{name: "Ivan", marks: []float64{5, 5, 4, 4}},
@@ -90,8 +91,7 @@ func main() {
 			comment = "Требуется подтянуть оценки"
 		}
 
-		fmt.Printf("Студент: %s, оценки: %.2f, средняя: %.2f -> %s\n", valueSlice.name, valueSlice.marks, avgMark, comment)
+		fmt.Printf("Студент: %s, оценки: %.f, средняя: %.2f -> %s\n", valueSlice.name, valueSlice.marks, avgMark, comment)
 	}
-	//fmt.Println(Student)
-
+	fmt.Println()
 }
