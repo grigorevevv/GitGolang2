@@ -11,3 +11,10 @@ func fibonacci(n int) int {
 	}
 	return sliceFib[n]
 }
+
+func recfibonacci(n int) int {
+	if n < 2 {
+		return n
+	}
+	return recfibonacci(n-1) + recfibonacci(n-2)
+}
