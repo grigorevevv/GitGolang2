@@ -105,9 +105,11 @@ func main() {
 	var n int
 	fmt.Print("Введите число: ")
 	_, err = fmt.Scan(&n) //    возвращает *n*-е число Фибоначчи
+
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	switch {
 	case n >= 0:
 		fmt.Printf("%d-е число Фибоначчи = %d\n", n, recfibonacci(n))
