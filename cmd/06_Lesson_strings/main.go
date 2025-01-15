@@ -24,9 +24,8 @@ func main() {
 		Согласных = 3 (H, l, l)
 	*/
 	fmt.Println("Задача 1: Подсчёт гласных и согласных")
-	var text string
 
-	text = "Hello golang "
+	text := "Hello golang "
 	vowels, consonants := countVowelsAndConsonants(text)
 	fmt.Printf("В слове %s, количество гласных - %d, и количество согласных - %d\n", text, vowels, consonants)
 	fmt.Println()
@@ -41,7 +40,7 @@ func main() {
 	*/
 
 	fmt.Println("Задача 2: Поиск подстроки")
-	fmt.Println(findOccurrences(text, "l")) //  вручную, перебирая индексы
+	fmt.Println(findOccurrences(text, "ll")) //  вручную, перебирая индексы
 	fmt.Println()
 	fmt.Println(findOccurrences_2(text, "l")) // методом из пакета strings.Split
 	fmt.Println()
@@ -64,6 +63,7 @@ func main() {
 	text = "go is an open source programming language"
 	fmt.Println("Задача 3: Сортировка слов в предложении")
 	fmt.Println(sortWordSlice(text))
+	fmt.Println(wordFrequencyTEST(text))
 	fmt.Println()
 
 	/*
@@ -94,7 +94,7 @@ func main() {
 	freq := wordFrequency(text)
 	fmt.Println(freq)
 
-	//--------  Первый способ----------------------------
+	//--------  Первый способ  ----------------------------
 	keys := make([]int, 0, len(freq))
 
 	for _, words := range freq {
@@ -113,7 +113,7 @@ func main() {
 
 	fmt.Println()
 
-	//--------  Второй способ----------------------------
+	//--------  Второй способ  ----------------------------
 	fmt.Println("После сотрировки - 2")
 	type key_value struct {
 		Key   string
@@ -127,7 +127,11 @@ func main() {
 	}
 
 	sort.Slice(sorted_struct, func(i, j int) bool {
-		return sorted_struct[i].Value > sorted_struct[j].Value
+		if sorted_struct[i].Value != sorted_struct[j].Value {
+			return sorted_struct[i].Value > sorted_struct[j].Value
+		} else {
+			return sorted_struct[i].Key < sorted_struct[j].Key
+		}
 	})
 
 	for _, Fruits_quantity := range sorted_struct {
@@ -153,16 +157,17 @@ func countVowelsAndConsonants(s string) (int, int) {
 }
 
 func findOccurrences(s, sub string) int {
-	var count, sum int
+	var sum int
 
 	for i := 0; i < (len(s) - len(sub)); i++ {
-		count = 0
+		b := true
 		for y := 0; y < len(sub); y++ {
-			if s[i+y] == sub[0+y] {
-				count++
+			if s[i+y] != sub[0+y] {
+				b = false
+				break
 			}
 		}
-		if count == len(sub) {
+		if b {
 			sum++
 		}
 	}
@@ -184,8 +189,8 @@ func sortWordSlice(textin string) []string {
 
 func wordFrequencyTEST(text string) map[string]int {
 
-	resultMap := make(map[string]int)
-	//var resultmap map[string]int
+	//resultMap := make(map[string]int)
+	var resultMap = map[string]int{}
 
 	resultMap["word"] = 1
 
