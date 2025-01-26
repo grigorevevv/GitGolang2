@@ -39,6 +39,8 @@ func main() {
 		fmt.Printf("%c: %d\n", wordKey, wordValue)
 	}
 
+	fmt.Println(countLetters(textIn))
+
 	/*  Задача 2: Слияние двух map
 	1. Создайте две карты map[string]int, которые, например, будут хранить данные о товарах и их ценах(любой набор: "apple": 100, "banana": 50 и т.д.).
 	2. Напишите функцию mergeMaps(m1, m2 map[string]int) map[string]int, которая возвращает новую карту, содержащую всепары (ключ:значение) из m1 и m2.
@@ -145,27 +147,12 @@ func main() {
 
 func countLetters(text string) map[rune]int {
 
-	var runeSlice []rune
-	resultMap := make(map[rune]int)
-	var counter int
+	resultMap := map[rune]int{}
 
 	for _, r := range text {
-		runeSlice = append(runeSlice, r)
-	}
-
-	for _, word := range runeSlice {
-		if unicode.IsLetter(word) && len(resultMap) > 0 {
-			counter = 1
-			for words, _ := range resultMap {
-				if words == word {
-					counter = resultMap[word] + 1
-				}
-			}
-			resultMap[word] = counter
-		} else if unicode.IsLetter(word) {
-			resultMap[word] = 1
+		if unicode.IsLetter(r) {
+			resultMap[r]++
 		}
-		//fmt.Printf("%d - %c - %d\n", index, word, word)
 	}
 	return resultMap
 }
@@ -202,18 +189,8 @@ func groupByCourse(students []Student) map[int][]string {
 	resultMap := make(map[int][]string)
 
 	for _, student := range students {
-		for i := 1; i < 8; i++ {
-			if student.Course == i {
-				resultMap[i] = append(resultMap[i], student.Name)
-
-			}
-		}
+		resultMap[student.Course] = append(resultMap[student.Course], student.Name)
 	}
 
-	for i := 1; i < 8; i++ {
-		if len(resultMap[i]) == 0 {
-			resultMap[i] = append(resultMap[i], "")
-		}
-	}
 	return resultMap
 }
