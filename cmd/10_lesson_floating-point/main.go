@@ -124,7 +124,7 @@ func amountNumbers(sliceInt []int) string {
 	counter := 0
 	for _, number := range sliceInt {
 
-		if primeNumberBool(number) {
+		if isPrime(number) {
 			result += fmt.Sprintf("%d - Простое число\n", number)
 			counter++
 		} else {
@@ -141,7 +141,7 @@ func amountNumbers(sliceInt []int) string {
 	return result
 }
 
-func primeNumberBool(number int) bool {
+func isPrime(number int) bool {
 	if number < 2 {
 		return false
 	}
