@@ -2,20 +2,18 @@ package main
 
 import (
 	"fmt"
-	"unicode"
 )
 
 const taxRate = 0.2
 
 func calculateTotal(price float64) float64 {
-	/*
-		Задача 1: Расчёт суммы покупки с налогом
-		Описание:  Напишите программу, которая вычисляет итоговую стоимость товара с учётом налога.
-		Требования:			1. Объявите константу taxRate = 0.2 (налог 20%).
-							2. Напишите функцию calculateTotal(price float64) float64, которая добавляет налог к цене.
-							3. Проверьте её на ценах: 500.00, 1200.50.
-		Ожидаемый вывод:			Итоговая цена: 600.00
-									Итоговая цена: 1440.60
+	/*  Задача 1: Расчёт суммы покупки с налогом
+	Описание:  Напишите программу, которая вычисляет итоговую стоимость товара с учётом налога.
+	Требования:			1. Объявите константу taxRate = 0.2 (налог 20%).
+						2. Напишите функцию calculateTotal(price float64) float64, которая добавляет налог к цене.
+						3. Проверьте её на ценах: 500.00, 1200.50.
+	Ожидаемый вывод:			Итоговая цена: 600.00
+								Итоговая цена: 1440.60
 	*/
 	return price + price*taxRate
 }
@@ -29,9 +27,9 @@ func modifyArray(arr *[6]int) {
 	Ожидаемый вывод:				До: [3 8 5 12 7 14]
 									После: [-1 8 -1 12 -1 14]
 	*/
-	for indesx, number := range *arr { //  итерация по указатель ? зачем тогда указатель
-		if number%2 > 0 {
-			arr[indesx] = -1
+	for i := 0; i < len(arr); i++ {
+		if arr[i]%2 > 0 {
+			arr[i] = -1
 		}
 	}
 }
@@ -46,9 +44,9 @@ func amountUniqueCharInString(text string) int {
 	*/
 	runeMap := map[rune]bool{}
 	for _, word := range text {
-		if unicode.IsLetter(word) {
-			runeMap[word] = true
-		}
+		//if unicode.IsLetter(word) {
+		runeMap[word] = true
+		//}
 	}
 	return len(runeMap)
 }
@@ -67,7 +65,9 @@ func calculatorConsumer(hours float64) string {
 								Фен: 1.50 кВт⋅ч
 								Кондиционер: 10.00 кВт⋅ч
 								Общее потребление: 21.00 кВт⋅ч
+	Две мапы.Одна имена, другая мощность, все используют одинаковые индексы, данные вынести за функцию
 	*/
+
 	powerDevices := map[string]float64{
 		"Холодильник": 3000,
 		"Чайник":      4500,
@@ -75,6 +75,7 @@ func calculatorConsumer(hours float64) string {
 		"Фен":         1500,
 		"Кондиционер": 10000,
 	}
+
 	var sumConsumer float64
 	result := fmt.Sprintf("Потребление за %.2f ч. :\n", hours)
 	for device, power := range powerDevices {
@@ -86,30 +87,38 @@ func calculatorConsumer(hours float64) string {
 }
 
 func main() {
-	priceList := []float64{500.00, 1200.50}
+	/*
+		priceList := []float64{500.00, 1200.50}
 
-	fmt.Println("Задача 1: Расчёт суммы покупки с налогом")
-	for _, p := range priceList {
-		fmt.Println(calculateTotal(p))
-	}
-	fmt.Println()
+		fmt.Println("Задача 1: Расчёт суммы покупки с налогом")
+		for _, p := range priceList {
+			fmt.Println(calculateTotal(p))
+		}
+		fmt.Println()
 
-	fmt.Println("Задача 2: Указатели и изменение массива")
-	intArr := [6]int{3, 8, 5, 12, 7, 14}
+		fmt.Println("Задача 2: Указатели и изменение массива")
+		intArr := [6]int{3, 8, 5, 12, 7, 14}
 
-	fmt.Println(intArr)
-	modifyArray(&intArr)
-	fmt.Println(intArr)
+		fmt.Println(intArr)
+		modifyArray(&intArr)
+		fmt.Println(intArr)
 
-	fmt.Println()
-	fmt.Println("Задача 3: Подсчёт уникальных символов в строке")
+		fmt.Println()
+		fmt.Println("Задача 3: Подсчёт уникальных символов в строке")
 
-	slceWords := []string{"hello", "абракадабра", "Hello word!d."}
-	for _, word := range slceWords {
-		fmt.Printf("Уникальные символы в \"%s\": %d\n", word, amountUniqueCharInString(word))
-	}
-	fmt.Println()
+		slceWords := []string{"hello", "абракадабра", "Hello word!d."}
+		for _, word := range slceWords {
+			fmt.Printf("Уникальные символы в \"%s\": %d\n", word, amountUniqueCharInString(word))
+
+
+		}
+		fmt.Println()
+
+	*/
+
 	fmt.Println("Задача 4 (сложнее): Калькулятор потребления электроэнергии")
+
+
 
 	hoursArray := [5]float64{2, 3, 4, 1.5, 5}
 	for i := 0; i < len(hoursArray); i++ {
