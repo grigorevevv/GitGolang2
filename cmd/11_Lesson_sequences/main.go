@@ -5,6 +5,7 @@ import (
 	"math"
 	"math/rand"
 	"strings"
+	"time"
 )
 
 func main() {
@@ -18,8 +19,8 @@ func main() {
 		{"name": "Мышь", "status": "отменён"},
 	}
 
-	//statOrder := statisticOrders(orders)
-	for statusName, count := range statisticOrders(orders) { // функция одни раз выполняется???
+	statOrder := statisticOrders(orders)
+	for statusName, count := range statOrder {
 		fmt.Printf("%s: %d\n", statusName, count)
 	}
 
@@ -33,11 +34,12 @@ func main() {
 
 	fmt.Println("Задача 3: Калькулятор команд в турнире")
 	teams := map[string]int{
-		"Львы":  10,
-		"Тигры": 15,
-		"Орлы":  12,
-		"Акулы": 18,
-		"Волки": 14,
+		"Львы":    10,
+		"Тигры":   15,
+		"Орлы":    12,
+		"Акулы":   18,
+		"Волки":   14,
+		"Медведи": 18,
 	}
 
 	fmt.Println(calculatorCommand(teams))
@@ -45,10 +47,9 @@ func main() {
 
 	fmt.Println("Задача 4: Распределение студентов по группам")
 	students := []string{"Алиса", "Борис", "Виктор", "Глеб", "Дмитрий", "Елена", "Жанна", "Захар", "Игорь"}
-	//rand.Seed(time.Now().UnixNano())
 
 	fmt.Println(groupDistribution(students))
-	fmt.Println(students) /// Ну очень интересный результат))
+	fmt.Println(students)
 
 	fmt.Println()
 }
@@ -94,8 +95,8 @@ func statisticTemperature(temps [7]float64) string {
 		min = math.Min(min, temp)
 		sum += temp
 	}
-	average = sum / 7
-	//result += fmt.Sprintf("max - %.1f\nmin - %.1f", max, min)
+	average = sum / float64(len(temps))
+
 	return fmt.Sprintf("Максимальная температура: %.1f°C\n"+
 		"Минимальная температура: %.1f°C\n"+
 		"Средняя температура: %.1f°C\n"+
@@ -112,40 +113,52 @@ func calculatorCommand(teams map[string]int) string {
 							Аутсайдер: Львы (10 очков)
 							Команды выше среднего: Тигры, Орлы, Волки, Акулы
 	*/
-	slicepoints := []float64{}
-	var leader, outsider, aboveAverage string
-	aboveAverageSlice := []string{}
-	for nameCommand, _ := range teams {
-		slicepoints = append(slicepoints, float64(teams[nameCommand]))
-	}
+	var leaderSlice, outsiderSlice, aboveAverageSlice []string
 
-	max, min := slicepoints[0], slicepoints[0]
-	var sum, count, average float64
-	for _, point := range slicepoints {
-		max = math.Max(max, point)
-		min = math.Min(min, point)
-		sum += float64(point)
-		count++
-	}
-	average = sum / count
+	var max, min, sum int
+	var average float64
+	fl := true
 
-	for nameCommand, _ := range teams {
-		if float64(teams[nameCommand]) == max {
-			leader = fmt.Sprintf("Лидер турнира: %s (%d очков)\n", nameCommand, teams[nameCommand])
+	for name, point := range teams {
+		if fl {
+			fl = false
+			max, min = point, point
 		}
-		if float64(teams[nameCommand]) == min {
-			outsider = fmt.Sprintf("Аутсайдер: %s (%d очков)\n", nameCommand, teams[nameCommand])
+
+		if point > max {
+			max = point
+			leaderSlice = leaderSlice[:0]
+			leaderSlice = append(leaderSlice, name)
+		} else if point == max {
+			leaderSlice = append(leaderSlice, name)
 		}
-		if float64(teams[nameCommand]) > average {
-			aboveAverageSlice = append(aboveAverageSlice, nameCommand)
+
+		if point < min {
+			min = point
+			outsiderSlice = outsiderSlice[:0]
+			outsiderSlice = append(outsiderSlice, name)
+		} else if point == min {
+			outsiderSlice = append(outsiderSlice, name)
+		}
+		sum += point
+	}
+	average = float64(sum) / float64(len(teams))
+
+	for name, point := range teams {
+		if float64(point) > average {
+			aboveAverageSlice = append(aboveAverageSlice, name)
 		}
 	}
-	aboveAverage = "Команды выше среднего: " + strings.Join(aboveAverageSlice, ", ")
-	//return fmt.Sprintf("%s\n%s\n%s", leader, outsider, aboveAverage)
+	leader := "Лидер турнира: " + strings.Join(leaderSlice, ", ") + "\n"
+	outsider := "Аутсайдер: " + strings.Join(outsiderSlice, ", ") + "\n"
+	aboveAverage := "Команды выше среднего: " + strings.Join(aboveAverageSlice, ", ")
+
+	//fmt.Println(average)
 	return leader + outsider + aboveAverage
 }
 
-func groupDistribution(students []string) string {
+func groupDistribution(studs []string) string {
+
 	/*   Задача 4: Распределение студентов по группам
 	В университете есть список студентов, которых нужно случайным образом распределить по трём группам.
 	students := []string{"Алиса", "Борис", "Виктор", "Глеб", "Дмитрий", "Елена", "Жанна", "Захар", "Игорь"}
@@ -158,30 +171,45 @@ func groupDistribution(students []string) string {
 	*/
 
 	//rand.Seed(time.Now().UnixNano())
-	var groupOne, groupTwo, groupThree []string
-	maxLen := len(students)
-	for i := 0; i < maxLen; i++ {
-		//fmt.Println(i, len(students))
-		number := rand.Intn(len(students))
-		//fmt.Println(len(groupOne))
-		switch {
-		case len(groupOne) < 3:
-			groupOne = append(groupOne, students[number])
-			students[number] = students[len(students)-1]
-			students = students[:len(students)-1]
-		case len(groupTwo) < 3:
-			groupTwo = append(groupTwo, students[number])
-			students[number] = students[len(students)-1]
-			students = students[:len(students)-1]
-		case len(groupThree) < 3:
-			groupThree = append(groupThree, students[number])
-			students[number] = students[len(students)-1]
-			students = students[:len(students)-1]
+	/*
+		var groupOne, groupTwo, groupThree []string
+		maxLen := len(students)
+		for i := 0; i < maxLen; i++ {
+			//fmt.Println(i, len(students))
+			number := rand.Intn(len(students))
+			//fmt.Println(len(groupOne))
+			switch {
+			case len(groupOne) < 3:
+				groupOne = append(groupOne, students[number])
+				students[number] = students[len(students)-1]
+				students = students[:len(students)-1]
+			case len(groupTwo) < 3:
+				groupTwo = append(groupTwo, students[number])
+				students[number] = students[len(students)-1]
+				students = students[:len(students)-1]
+			case len(groupThree) < 3:
+				groupThree = append(groupThree, students[number])
+				students[number] = students[len(students)-1]
+				students = students[:len(students)-1]
+			}
+
+			//fmt.Println(students)
+
 		}
+		return fmt.Sprintf("Группа 1: %s\nГруппа 2: %s\nГруппа 3: %s",
+			strings.Join(groupOne, ", "),
+			strings.Join(groupTwo, ", "),
+			strings.Join(groupThree, ", "))
+	*/
+	students := make([]string, 0, len(studs))
+	students = append(students, studs...)
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(students), func(i, j int) {
+		students[i], students[j] = students[j], students[i]
+	})
+	groupSize := len(students) / 3
+	groupOne, groupTwo, groupThree := students[:groupSize], students[groupSize:groupSize*2], students[groupSize*2:]
 
-		//fmt.Println(students)
-
-	}
 	return fmt.Sprintf("Группа 1: %s\nГруппа 2: %s\nГруппа 3: %s",
 		strings.Join(groupOne, ", "),
 		strings.Join(groupTwo, ", "),
